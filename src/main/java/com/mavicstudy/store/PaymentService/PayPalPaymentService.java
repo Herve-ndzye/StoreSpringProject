@@ -1,9 +1,7 @@
-package com.mavicstudy.store;
-
-import org.springframework.stereotype.Service;
+package com.mavicstudy.store.PaymentService;
 
 //@Service
-public class PayPalPaymentService implements PaymentService{
+public class PayPalPaymentService implements PaymentService {
 
     @Override
     public void processPayment(double amount) {

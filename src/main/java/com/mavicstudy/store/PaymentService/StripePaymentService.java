@@ -1,4 +1,4 @@
-package com.mavicstudy.store;
+package com.mavicstudy.store.PaymentService;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.mavicstudy.store;
+package com.mavicstudy.store.PaymentService;
 
 public interface PaymentService {
     void processPayment(double amount);

@@ -1,8 +1,8 @@
 package com.mavicstudy.store.NotificationService;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service("sms")
 public class SmsNotificationService implements NotificationService{
 
     @Override

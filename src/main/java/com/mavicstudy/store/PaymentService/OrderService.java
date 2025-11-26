@@ -3,12 +3,13 @@ package com.mavicstudy.store.PaymentService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class OrderService {
 
     private PaymentService paymentService;
-    public  OrderService( @Qualifier("paypal") PaymentService paymentService){
+    public  OrderService( PaymentService paymentService){
         this.paymentService = paymentService;
+        System.out.println("Order Service created!");
     }
     public void placeOrder(){
         paymentService.processPayment(10);

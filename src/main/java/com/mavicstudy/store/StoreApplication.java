@@ -1,6 +1,6 @@
 package com.mavicstudy.store;
 
-import com.mavicstudy.store.NotificationService.NotificationManager;
+import com.mavicstudy.store.PaymentService.HeavyResource;
 import com.mavicstudy.store.PaymentService.OrderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,10 +11,11 @@ public class StoreApplication {
 
     public static void main(String[] args) {
        ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        var sendNotificationService = context.getBean(NotificationManager.class);
-        sendNotificationService.sendNotification("Hello, this is a test message!");
+//        var orderService = context.getBean(OrderService.class);
+//        orderService.placeOrder();
 //        var orderService  = context.getBean(OrderService.class);
 //        orderService.placeOrder();
+          var Resource = context.getBean(HeavyResource.class);
     }
 
 }

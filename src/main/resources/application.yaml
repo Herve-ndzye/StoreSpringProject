@@ -1,0 +1,8 @@
+spring:
+  application:
+    name : store
+user:
+  paymentGateway : paypal
+server:
+  host : http://mavic.com
+  port : 2000

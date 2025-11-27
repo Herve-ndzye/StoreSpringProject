@@ -1,6 +1,10 @@
 spring:
   application:
     name : store
+  datasource:
+    url : jdbc:mysql://localhost:3000/store?createDatabaseIfNotExist=true
+    username : root
+    password : admin@123
 user:
   paymentGateway : paypal
 server:

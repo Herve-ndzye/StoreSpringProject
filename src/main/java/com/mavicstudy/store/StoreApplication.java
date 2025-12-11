@@ -1,29 +1,18 @@
 package com.mavicstudy.store;
 
-import com.mavicstudy.store.entities.Address;
-import com.mavicstudy.store.entities.Profile;
-import com.mavicstudy.store.entities.Tag;
-import com.mavicstudy.store.entities.User;
+import com.mavicstudy.store.entities.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.math.BigDecimal;
 
 @SpringBootApplication
 public class StoreApplication {
 
     public static void main(String[] args) {
-        User user = User.builder()
-                .name("Herve")
-                .email("herve@gmail.com")
-                .password("123456")
-                .build();
-        var profile = Profile.builder()
-                        .bio("Robotics Engineering")
-                                .dateOfBirth("10/02/2009")
-                                        .loyaltyPoint("50")
-                                                .phoneNumber("0785858584")
-                                                        .build();
-        user.setProfile(profile);
-        profile.setUser(user);
-        System.out.println(user);
+        Products iphone = new Products(11L,"Iphone 17 Pro", BigDecimal.valueOf(1500.00));
+        Category telephone = new Category(1,"telephone");
+        telephone.getProducts().add(iphone);
+        System.out.println(telephone);
 
     }
 

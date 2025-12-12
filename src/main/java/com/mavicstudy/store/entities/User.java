@@ -31,6 +31,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
+    @ToString.Exclude
     private List<Address> addresses = new ArrayList<>();
 
     public void addAddress(Address address){
@@ -59,6 +60,7 @@ public class User {
             joinColumns = @JoinColumn(name = "prod_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @ToString.Exclude
     private List<Product> products = new ArrayList<>();
 
     public void addTag(String tagName){

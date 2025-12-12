@@ -50,7 +50,16 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     @Builder.Default
+    @ToString.Exclude
     private Set<Tag> tags = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<Product> products = new ArrayList<>();
 
     public void addTag(String tagName){
         Tag tag = new Tag(tagName);

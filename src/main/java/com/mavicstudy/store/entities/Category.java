@@ -1,21 +1,18 @@
 package com.mavicstudy.store.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Setter
 @Getter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Entity
 @Table(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Byte id;
 
@@ -23,10 +20,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<Products> products = new ArrayList<>();
+    private Set<Product> products = new HashSet<>();
 
-    public Category(int id, String name) {
-        this.id = (byte) id;
-        this.name = name;
-    }
 }

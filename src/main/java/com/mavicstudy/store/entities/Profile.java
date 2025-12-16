@@ -28,7 +28,7 @@ public class Profile {
     @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @MapsId
     @ToString.Exclude

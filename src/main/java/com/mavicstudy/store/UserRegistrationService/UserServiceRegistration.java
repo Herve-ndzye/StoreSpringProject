@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Scope("prototype")
-public class UserService {
+public class UserServiceRegistration {
    public void registerUser(User user){
         registerUsers.save(user);
         service.send("How are you my friend?","hervendizeye0@gmail.com");
@@ -13,7 +13,7 @@ public class UserService {
     private UserRepository registerUsers;
     private NotificationService service;
 
-    public UserService(NotificationService notifyService,UserRepository registerUsers){
+    public UserServiceRegistration(NotificationService notifyService, UserRepository registerUsers){
         this.service = notifyService;
         this.registerUsers = registerUsers;
         System.out.println("User service created!");

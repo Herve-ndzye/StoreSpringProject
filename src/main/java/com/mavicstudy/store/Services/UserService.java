@@ -58,4 +58,8 @@ public class UserService {
         user.setProducts((List<Product>) products);
         userRepository.save(user);
     }
+    public void fetchUser(){
+        var user = userRepository.findByEmail("Nicaise@gmail.com").orElseThrow();
+        System.out.println(user);
+    }
 }

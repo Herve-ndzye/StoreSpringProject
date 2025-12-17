@@ -18,7 +18,12 @@ public class ProductService {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
     }
+//    public void createCategory(){
+//        Category category = new Category("Shoes");
+//        categoryRepository.save(category);
+//    }
 
+    @Transactional
     public void createProduct(){
         var product = Product.builder()
                 .name("Airmax 270")
@@ -28,5 +33,15 @@ public class ProductService {
         var category = categoryRepository.findById((byte) 1).orElseThrow();
         product.setCategory(category);
         productRepository.save(product);
+    }
+    @Transactional
+    public void updateProductsPrice(){
+        productRepository.updatePrice(BigDecimal.valueOf(200),  (byte)1);
+    }
+
+    public void fetchProducts(){
+        var category = categoryRepository.findById((byte)2).orElseThrow();
+        var products  = productRepository.findByCategory(category);
+        products.forEach(System.out::println);
     }
 }

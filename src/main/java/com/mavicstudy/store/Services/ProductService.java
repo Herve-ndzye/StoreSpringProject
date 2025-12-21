@@ -44,4 +44,9 @@ public class ProductService {
         var products  = productRepository.findByCategory(category);
         products.forEach(System.out::println);
     }
+    @Transactional
+    public void fetchProductsByPrice(BigDecimal priceMin, BigDecimal priceMax){
+        var products = productRepository.findByPriceBetweenOrderByName(priceMin,priceMax);
+        products.forEach(System.out::println);
+    }
 }

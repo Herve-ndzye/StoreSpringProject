@@ -58,8 +58,20 @@ public class UserService {
         user.setProducts((List<Product>) products);
         userRepository.save(user);
     }
-    public void fetchUser(){
-        var user = userRepository.findByEmail("Nicaise@gmail.com").orElseThrow();
-        System.out.println(user);
+    @Transactional
+    public void fetchUsers(){
+        var users = userRepository.findAllWithAddresses();
+        users.forEach(u -> {
+            System.out.println(u);
+            u.getAddresses().forEach(System.out::println);
+        });
+    }
+    @Transactional
+    public void findLoyalUsers(){
+        var profiles = userRepository.findLoyalUsers(2);
+        profiles.forEach(p -> {
+            System.out.print(p.getId()+" ");
+            System.out.println(p.getEmail());
+        });
     }
 }

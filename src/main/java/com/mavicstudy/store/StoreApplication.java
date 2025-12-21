@@ -1,6 +1,7 @@
 package com.mavicstudy.store;
 
 import com.mavicstudy.store.Services.ProductService;
+import com.mavicstudy.store.Services.ProfileService;
 import com.mavicstudy.store.Services.UserService;
 import com.mavicstudy.store.entities.Category;
 import com.mavicstudy.store.entities.Product;
@@ -15,7 +16,7 @@ public class StoreApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        var userService = context.getBean(UserService.class);
-        userService.fetchUser();
+        var service = context.getBean(UserService.class);
+        service.findLoyalUsers();
     }
 }

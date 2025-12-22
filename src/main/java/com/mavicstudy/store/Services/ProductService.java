@@ -5,6 +5,7 @@ import com.mavicstudy.store.Repositories.ProductRepository;
 import com.mavicstudy.store.entities.Category;
 import com.mavicstudy.store.entities.Product;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -40,8 +41,10 @@ public class ProductService {
     }
 
     public void fetchProducts(){
-        var category = categoryRepository.findById((byte)2).orElseThrow();
-        var products  = productRepository.findByCategory(category);
+        var product = new Product();
+        product.setName("Airmax 270");
+        var example = Example.of(product);
+        var products = productRepository.findAll(example);
         products.forEach(System.out::println);
     }
     @Transactional

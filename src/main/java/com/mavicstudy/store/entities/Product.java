@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

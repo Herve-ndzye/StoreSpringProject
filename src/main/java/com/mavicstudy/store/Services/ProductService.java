@@ -2,11 +2,14 @@ package com.mavicstudy.store.Services;
 
 import com.mavicstudy.store.Repositories.CategoryRepository;
 import com.mavicstudy.store.Repositories.ProductRepository;
+import com.mavicstudy.store.Repositories.Specifications.ProductSpec;
 import com.mavicstudy.store.entities.Category;
 import com.mavicstudy.store.entities.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.PredicateSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -59,5 +62,19 @@ public class ProductService {
     public void fetchProductsByPrice(BigDecimal priceMin, BigDecimal priceMax){
         var products = productRepository.findByPriceBetweenOrderByName(priceMin,priceMax);
         products.forEach(System.out::println);
+    }
+
+    public void fetchProductsBySpecifications(String name , BigDecimal priceMin, BigDecimal priceMax){
+        Specification<Product> spec = Specification.where();
+        if(name != null){
+            spec = spec.and(ProductSpec.hasName(name));
+        }
+        if(priceMin != null){
+            spec = spec.and(ProductSpec.hasPriceGreaterThanOrEqualTo(priceMin));
+        }
+        if(priceMax != null){
+            spec = spec.and(ProductSpec.hasPriceLessThanOrEqualTo(priceMax));
+        }
+        productRepository.findAll(spec).forEach(System.out::println);
     }
 }

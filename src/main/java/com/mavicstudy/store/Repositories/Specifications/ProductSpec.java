@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class ProductSpec {
     public static Specification<Product> hasName(String name){
-        return ((root, query, criteriaBuilder) ->  criteriaBuilder.like(root.get("name"),name));
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name + "%");
     }
 
     public static Specification<Product> hasPriceGreaterThanOrEqualTo(BigDecimal price){
@@ -15,6 +15,6 @@ public class ProductSpec {
     }
 
     public static Specification<Product> hasPriceLessThanOrEqualTo(BigDecimal price){
-        return ((root, query, criteriaBuilder) ->criteriaBuilder.lessThan(root.get("price"),price));
+        return ((root, query, criteriaBuilder) ->criteriaBuilder.lessThanOrEqualTo(root.get("price"),price));
     }
 }

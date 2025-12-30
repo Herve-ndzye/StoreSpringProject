@@ -13,6 +13,6 @@ public class StoreApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         var service = context.getBean(ProductService.class);
-        service.fetchProductsBySpecifications("Airmax", BigDecimal.valueOf(10),BigDecimal.valueOf(300));
+        service.fetchPaginatedProducts(0,10);
     }
 }

@@ -8,11 +8,14 @@ import com.mavicstudy.store.entities.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.PredicateSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -64,17 +67,53 @@ public class ProductService {
         products.forEach(System.out::println);
     }
 
-    public void fetchProductsBySpecifications(String name , BigDecimal priceMin, BigDecimal priceMax){
-        Specification<Product> spec = Specification.where();
-        if(name != null){
-            spec = spec.and(ProductSpec.hasName(name));
+    public void fetchProductsBySpecifications(String name, BigDecimal priceMin, BigDecimal priceMax) {
+
+        Specification<Product> spec = null;
+
+        if (name != null && !name.isBlank()) {
+            spec = ProductSpec.hasName(name);
         }
-        if(priceMin != null){
-            spec = spec.and(ProductSpec.hasPriceGreaterThanOrEqualTo(priceMin));
+
+        if (priceMin != null) {
+            spec = (spec == null)
+                    ? ProductSpec.hasPriceGreaterThanOrEqualTo(priceMin)
+                    : spec.and(ProductSpec.hasPriceGreaterThanOrEqualTo(priceMin));
         }
-        if(priceMax != null){
-            spec = spec.and(ProductSpec.hasPriceLessThanOrEqualTo(priceMax));
+
+        if (priceMax != null) {
+            spec = (spec == null)
+                    ? ProductSpec.hasPriceLessThanOrEqualTo(priceMax)
+                    : spec.and(ProductSpec.hasPriceLessThanOrEqualTo(priceMax));
         }
-        productRepository.findAll(spec).forEach(System.out::println);
+
+        System.out.println("Searching with - Name: " + name + ", Min: " + priceMin + ", Max: " + priceMax);
+
+        List<Product> products = (spec == null)
+                ? productRepository.findAll()
+                : productRepository.findAll(spec);
+
+        System.out.println("Found " + products.size() + " products");
+        products.forEach(System.out::println);
     }
+
+    public void fetchSortedProducts(){
+        var sort = Sort.by("name").and(
+                Sort.by("price").descending()
+        );
+
+        productRepository.findAll(sort).forEach(System.out::println);
+    }
+
+    public void fetchPaginatedProducts(int page, int pageSize){
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        var pages = productRepository.findAll(pageRequest);
+        var products = pages.getContent();
+        var totalPages =  pages.getTotalPages();
+        var totalElements = pages.getTotalElements();
+        System.out.println("Total elements: " + totalElements);
+        System.out.println("Total pages: " + totalPages);
+
+    }
+
 }
